@@ -31,6 +31,23 @@
         android:textSize="13sp"
         android:textColor="@color/ink" />
 
+    <TextView
+        android:id="@+id/shizukuCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_card"
+        android:padding="14dp"
+        android:textSize="13sp"
+        android:textColor="@color/ink" />
+
+    <Button
+        android:id="@+id/shizukuButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/shizuku_btn_request" />
+
     <EditText
         android:id="@+id/searchBox"
         android:layout_width="match_parent"

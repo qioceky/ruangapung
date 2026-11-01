@@ -2,6 +2,7 @@ package id.ruangapung
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
@@ -17,9 +18,11 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import rikka.shizuku.Shizuku
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +39,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: AppAdapter
     private lateinit var statusCard: TextView
     private lateinit var bubbleButton: Button
+    private lateinit var shizukuCard: TextView
+    private lateinit var shizukuButton: Button
+    private var shizukuHintShown = false
+    private var bindingShizuku = false
+
+    private val shizukuPermListener =
+        Shizuku.OnRequestPermissionResultListener { _, grantResult ->
+            runOnUiThread {
+                if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                    bindShizuku()
+                } else {
+                    updateShizukuUi()
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,17 +63,30 @@ class MainActivity : AppCompatActivity() {
 
         statusCard = findViewById(R.id.statusCard)
         bubbleButton = findViewById(R.id.bubbleButton)
+        shizukuCard = findViewById(R.id.shizukuCard)
+        shizukuButton = findViewById(R.id.shizukuButton)
         val search = findViewById<EditText>(R.id.searchBox)
         val list = findViewById<RecyclerView>(R.id.appList)
         list.layoutManager = LinearLayoutManager(this)
 
+        Shizuku.addRequestPermissionResultListener(shizukuPermListener)
+
         adapter = AppAdapter(
             shownApps,
             onTap = { entry ->
-                if (FreeformLauncher.launch(this, entry.packageName)) {
-                    Toast.makeText(this, getString(R.string.opening_floating, entry.label), Toast.LENGTH_SHORT).show()
+                if (ShizukuCtl.isReady()) {
+                    openFloating(entry)
                 } else {
-                    Toast.makeText(this, getString(R.string.open_failed, entry.label), Toast.LENGTH_LONG).show()
+                    // Fallback lama bila Shizuku belum siap.
+                    if (!shizukuHintShown) {
+                        shizukuHintShown = true
+                        Toast.makeText(this, getString(R.string.hint_shizuku), Toast.LENGTH_LONG).show()
+                    }
+                    if (FreeformLauncher.launch(this, entry.packageName)) {
+                        Toast.makeText(this, getString(R.string.opening_floating, entry.label), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, getString(R.string.open_failed, entry.label), Toast.LENGTH_LONG).show()
+                    }
                 }
             },
             onLongPress = { entry ->
@@ -99,6 +130,88 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         updateBubbleButton()
         updateStatusCard()
+        updateShizukuUi()
+    }
+
+    override fun onDestroy() {
+        Shizuku.removeRequestPermissionResultListener(shizukuPermListener)
+        super.onDestroy()
+    }
+
+    private fun openFloating(entry: AppEntry) {
+        if (!Settings.canDrawOverlays(this)) {
+            Toast.makeText(this, getString(R.string.overlay_permission_needed), Toast.LENGTH_LONG).show()
+            startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")))
+            return
+        }
+        val i = Intent(this, FloatingWindowService::class.java)
+            .setAction(FloatingWindowService.ACTION_OPEN)
+            .putExtra(FloatingWindowService.EXTRA_PKG, entry.packageName)
+            .putExtra(FloatingWindowService.EXTRA_LABEL, entry.label)
+        startForegroundService(i)
+        Toast.makeText(this, getString(R.string.opening_floating, entry.label), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateShizukuUi() {
+        when (ShizukuCtl.state(this)) {
+            ShizukuCtl.State.NOT_INSTALLED -> {
+                shizukuCard.text = getString(R.string.shizuku_card_not_installed)
+                shizukuButton.text = getString(R.string.shizuku_btn_install)
+                shizukuButton.setOnClickListener { ShizukuCtl.openInStore(this) }
+            }
+            ShizukuCtl.State.NOT_RUNNING -> {
+                shizukuCard.text = getString(R.string.shizuku_card_not_running)
+                shizukuButton.text = getString(R.string.shizuku_btn_guide)
+                shizukuButton.setOnClickListener { showShizukuGuide() }
+            }
+            ShizukuCtl.State.DENIED -> {
+                shizukuCard.text = getString(R.string.shizuku_card_denied)
+                shizukuButton.text = getString(R.string.shizuku_btn_request)
+                shizukuButton.setOnClickListener {
+                    ShizukuCtl.requestPermission(this, SHIZUKU_REQ)
+                }
+            }
+            ShizukuCtl.State.NOT_BOUND -> {
+                shizukuCard.text = getString(R.string.shizuku_card_not_bound)
+                shizukuButton.text = getString(R.string.shizuku_btn_retry)
+                shizukuButton.setOnClickListener { bindShizuku() }
+                bindShizuku()
+            }
+            ShizukuCtl.State.READY -> {
+                shizukuCard.text = getString(R.string.shizuku_card_ready)
+                shizukuButton.text = getString(R.string.shizuku_btn_guide)
+                shizukuButton.setOnClickListener { showShizukuGuide() }
+            }
+        }
+    }
+
+    private fun bindShizuku() {
+        if (bindingShizuku) return
+        bindingShizuku = true
+        ShizukuCtl.ensureBound(this) { ok, err ->
+            runOnUiThread {
+                bindingShizuku = false
+                Toast.makeText(
+                    this,
+                    if (ok) getString(R.string.shizuku_bound_ok)
+                    else getString(R.string.shizuku_bound_fail, err ?: "?"),
+                    Toast.LENGTH_LONG,
+                ).show()
+                updateShizukuUi()
+            }
+        }
+    }
+
+    private fun showShizukuGuide() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.shizuku_guide_title)
+            .setMessage(R.string.shizuku_guide)
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
+
+    companion object {
+        private const val SHIZUKU_REQ = 1001
     }
 
     private fun loadApps() {

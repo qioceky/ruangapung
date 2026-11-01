@@ -138,6 +138,31 @@ class BubbleService : Service() {
         showPanel()
     }
 
+    /**
+     * Buka aplikasi: via jendela mengambang beneran (Shizuku) bila siap,
+     * atau fallback lama (ActivityOptions) bila belum.
+     */
+    private fun openAppFloating(pkg: String, label: String) {
+        if (ShizukuCtl.isReady() && Settings.canDrawOverlays(this)) {
+            val i = Intent(this, FloatingWindowService::class.java)
+                .setAction(FloatingWindowService.ACTION_OPEN)
+                .putExtra(FloatingWindowService.EXTRA_PKG, pkg)
+                .putExtra(FloatingWindowService.EXTRA_LABEL, label)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(i)
+            } else {
+                startService(i)
+            }
+            Toast.makeText(this, getString(R.string.opening_floating, label), Toast.LENGTH_SHORT).show()
+        } else {
+            if (FreeformLauncher.launch(this, pkg)) {
+                Toast.makeText(this, getString(R.string.opening_floating, label), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(R.string.open_failed, label), Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun showPanel() {
         val prefs = getSharedPreferences("ruangapung", MODE_PRIVATE)
         val favs = prefs.getStringSet("favorites", emptySet()).orEmpty().toList()
@@ -157,11 +182,7 @@ class BubbleService : Service() {
                 setPadding(36, 28, 36, 28)
             }
             row.setOnClickListener {
-                if (FreeformLauncher.launch(this, pkg)) {
-                    Toast.makeText(this, getString(R.string.opening_floating, label), Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, getString(R.string.open_failed, label), Toast.LENGTH_LONG).show()
-                }
+                openAppFloating(pkg, label)
                 togglePanel()
             }
             container.addView(row)

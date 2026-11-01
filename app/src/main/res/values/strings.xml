@@ -25,4 +25,27 @@
     <string name="bubble_failed">Gagal menampilkan gelembung.</string>
     <string name="crash_copied">Log crash disalin ke clipboard.</string>
     <string name="no_crash_log">Belum ada log crash tersimpan.</string>
+
+    <!-- Shizuku -->
+    <string name="shizuku_card_not_installed">Shizuku belum terpasang. Jendela mengambang beneran butuh Shizuku (tanpa root).</string>
+    <string name="shizuku_card_not_running">Shizuku terpasang tapi layanannya belum berjalan. Buka aplikasi Shizuku dan jalankan dulu.</string>
+    <string name="shizuku_card_denied">Shizuku berjalan, tapi izin untuk RuangApung belum diberikan.</string>
+    <string name="shizuku_card_not_bound">Izin Shizuku ada. Menghubungkan service…</string>
+    <string name="shizuku_card_ready">✓ Shizuku siap. Ketuk aplikasi untuk dibuka sebagai jendela mengambang beneran.</string>
+    <string name="shizuku_btn_install">Install Shizuku</string>
+    <string name="shizuku_btn_guide">Panduan</string>
+    <string name="shizuku_btn_request">Minta izin</string>
+    <string name="shizuku_btn_retry">Hubungkan ulang</string>
+    <string name="shizuku_guide_title">Panduan Shizuku</string>
+    <string name="shizuku_guide">1. Install aplikasi Shizuku (tombol di bawah).\n\n2. Buka Shizuku → pilih \"Start via Wireless debugging\" → ikuti langkah pairing di HP (tanpa PC).\n\n3. Kembali ke RuangApung → ketuk \"Minta izin\" → izinkan.\n\n4. Ketuk aplikasi mana pun untuk dibuka sebagai jendela mengambang: bisa digeser, di-resize, dan disentuh normal.</string>
+    <string name="shizuku_bound_ok">Service Shizuku terhubung.</string>
+    <string name="shizuku_bound_fail">Gagal menghubungkan: %1$s</string>
+    <string name="hint_shizuku">Mode fallback: aplikasi dibuka biasa. Aktifkan Shizuku untuk jendela mengambang beneran.</string>
+
+    <!-- Jendela mengambang -->
+    <string name="vd_failed">Gagal membuat virtual display.</string>
+    <string name="notif_channel_floating">Jendela Mengambang</string>
+    <string name="notif_text_floating">Jendela mengambang aktif</string>
+    <string name="back">Kembali</string>
+    <string name="resize">Ubah ukuran</string>
 </resources>
