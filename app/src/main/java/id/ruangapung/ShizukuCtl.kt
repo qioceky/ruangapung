@@ -130,6 +130,7 @@ object ShizukuCtl {
                     return@execute
                 }
                 val svc = IPrivilegedService.Stub.asInterface(binder)
+                    ?: run { cb(false, "Binder Shizuku null"); return@execute }
                 val ok = runCatching { svc.init() }.getOrDefault(false)
                 if (!ok) {
                     cb(false, "Gagal init InputManager di service Shizuku")

@@ -106,7 +106,7 @@ class PrivilegedService : IPrivilegedService.Stub() {
                 val ev = KeyEvent(now, now, a, keyCode, 0)
                 setDisplayId(ev, displayId)
                 inject.invoke(im, ev, displayId)
-                ev.recycle()
+                // KeyEvent.recycle() tidak ada di SDK publik — biarkan GC yang urus.
             }
         } catch (_: Exception) {
         }
