@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand">#5B5BD6</color>
+    <color name="brand_dark">#4343A8</color>
+    <color name="bg">#F6F7FB</color>
+    <color name="card">#FFFFFF</color>
+    <color name="ink">#1E2433</color>
+    <color name="muted">#8A93A6</color>
+    <color name="ic_launcher_background">#5B5BD6</color>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Motif jendela mengambang: dua jendela bertumpuk -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.18"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:pathData="M32,40 h28 a8,8 0 0 1 8,8 v20 a8,8 0 0 1 -8,8 h-28 a8,8 0 0 1 -8,-8 v-20 a8,8 0 0 1 8,-8 z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.32"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:pathData="M55,28 h22 a7,7 0 0 1 7,7 v16 a7,7 0 0 1 -7,7 h-22 a7,7 0 0 1 -7,-7 v-16 a7,7 0 0 1 7,-7 z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M54,36 h20" />
+</vector>

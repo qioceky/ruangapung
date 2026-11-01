@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RuangApung</string>
+
+    <string name="greeting">Ketuk aplikasi untuk dibuka sebagai jendela mengambang.</string>
+    <string name="search_hint">Cari aplikasi…</string>
+    <string name="no_apps">Tidak ada aplikasi yang cocok.</string>
+
+    <string name="status_supported">✓ Perangkat ini mendukung jendela mengambang (freeform).</string>
+    <string name="status_unsupported">⚠ Perangkat ini tidak melaporkan dukungan freeform. Jendela mungkin tetap terbuka normal, bukan mengambang. Coba aktifkan opsi \"Jendela bentuk bebas\" / \"Force activities to be resizable\" di Opsi Pengembang bila tersedia.</string>
+
+    <string name="bubble_toggle">Aktifkan gelembung tepi</string>
+    <string name="bubble_started">Gelembung tepi aktif. Geser untuk memindah, ketuk untuk buka cepat.</string>
+    <string name="overlay_permission_needed">Izin \"Tampilkan di atas aplikasi lain\" diperlukan. Aktifkan untuk RuangApung di layar berikut.</string>
+
+    <string name="opening_floating">Membuka %1$s mengambang…</string>
+    <string name="open_failed">Gagal membuka %1$s.</string>
+    <string name="added_favorite">%1$s ditambah ke favorit.</string>
+    <string name="removed_favorite">%1$s dihapus dari favorit.</string>
+    <string name="no_favorites">Belum ada favorit. Tahan aplikasi di daftar untuk menambah favorit.</string>
+    <string name="close">Tutup</string>
+
+    <string name="notif_channel">Gelembung RuangApung</string>
+    <string name="notif_text">Gelembung akses cepat aktif</string>
+</resources>

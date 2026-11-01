@@ -1,0 +1,60 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+}
+
+android {
+    namespace 'id.ruangapung'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "id.ruangapung"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "0.1.0"
+    }
+
+    signingConfigs {
+        // RuangApung v0.1.0: keystore tetap (JKS) dari secret CI.
+        // Tanpa env RUANGAPUNG_STORE_FILE, build memakai debug bawaan
+        // (workflow CI gagal eksplisit bila secret keystore kosong).
+        pinned {
+            storeFile file(System.getenv("RUANGAPUNG_STORE_FILE") ?: "/nonexistent/ruangapung-pinned.keystore")
+            storePassword System.getenv("RUANGAPUNG_STORE_PASSWORD") ?: "android"
+            keyAlias System.getenv("RUANGAPUNG_KEY_ALIAS") ?: "ruangapung"
+            keyPassword System.getenv("RUANGAPUNG_KEY_PASSWORD") ?: "android"
+            storeType "jks"
+        }
+    }
+
+    buildTypes {
+        release {
+            if (System.getenv("RUANGAPUNG_STORE_FILE")) {
+                signingConfig signingConfigs.pinned
+            }
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            if (System.getenv("RUANGAPUNG_STORE_FILE")) {
+                signingConfig signingConfigs.pinned
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    kotlinOptions {
+        jvmTarget = '21'
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.core.ktx
+    implementation libs.constraintlayout
+}

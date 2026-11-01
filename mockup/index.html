@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup — RuangApung (Liquid Glass)</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #e8edf3; color:#1e293b; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; padding:40px 20px 60px;
+  }
+  h1 { font-size:26px; font-weight:700; letter-spacing:-.5px; }
+  .sub { color:#64748b; margin-top:6px; font-size:14px; }
+  .badge {
+    margin-top:12px; font-size:12px; font-weight:600; color:#475569;
+    background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.8);
+    padding:6px 14px; border-radius:999px; backdrop-filter:blur(8px);
+  }
+  .stage { display:flex; gap:48px; margin-top:44px; flex-wrap:wrap; justify-content:center; }
+  .unit { display:flex; flex-direction:column; align-items:center; }
+  .caption { margin-top:18px; font-size:13px; color:#475569; max-width:340px; text-align:center; line-height:1.6; }
+  .caption b { color:#1e293b; }
+
+  /* ---------- phone ---------- */
+  .phone {
+    width:340px; height:720px; border-radius:52px; background:#0b0f14;
+    padding:12px; box-shadow:0 30px 70px rgba(15,23,42,.28), 0 2px 8px rgba(15,23,42,.2);
+    position:relative;
+  }
+  .notch {
+    position:absolute; top:12px; left:50%; transform:translateX(-50%);
+    width:110px; height:28px; background:#0b0f14; border-radius:0 0 18px 18px; z-index:5;
+  }
+  .screen {
+    width:100%; height:100%; border-radius:42px; overflow:hidden; position:relative;
+    background:
+      radial-gradient(120% 60% at 15% 0%, #c7d8ff 0%, transparent 55%),
+      radial-gradient(120% 70% at 90% 20%, #ffd9e8 0%, transparent 55%),
+      radial-gradient(130% 80% at 50% 110%, #c9f2e4 0%, transparent 60%),
+      linear-gradient(180deg, #dfe9f7 0%, #eef3fa 60%, #e6eef7 100%);
+  }
+  .statusbar {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 26px 0; font-size:13px; font-weight:600; color:#1e293b; z-index:4; position:relative;
+  }
+  .statusbar .ics { display:flex; gap:6px; align-items:center; font-size:12px; }
+
+  /* ---------- liquid glass ---------- */
+  .glass {
+    background:rgba(255,255,255,.30);
+    backdrop-filter:blur(22px) saturate(170%);
+    -webkit-backdrop-filter:blur(22px) saturate(170%);
+    border:1px solid rgba(255,255,255,.65);
+    box-shadow:0 10px 30px rgba(30,41,59,.10), inset 0 1px 0 rgba(255,255,255,.75), inset 0 -1px 0 rgba(255,255,255,.25);
+    border-radius:26px; position:relative; overflow:hidden;
+  }
+  .glass::before {
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background:linear-gradient(115deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.06) 28%, transparent 45%);
+  }
+
+  .page { position:relative; z-index:2; padding:14px 16px 0; height:100%; display:flex; flex-direction:column; }
+  .hello { font-size:13px; color:#64748b; margin-top:10px; }
+  .title { font-size:27px; font-weight:800; letter-spacing:-.8px; margin-top:2px; }
+  .title span { background:linear-gradient(90deg,#3b82f6,#8b5cf6); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  .search {
+    margin-top:14px; display:flex; align-items:center; gap:10px;
+    padding:13px 18px; border-radius:999px; font-size:14px; color:#94a3b8;
+  }
+  .search .dot { width:8px; height:8px; border-radius:50%; background:#94a3b8; }
+
+  .sect { font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#64748b; margin:20px 4px 10px; }
+
+  .favrow { display:flex; gap:12px; overflow:hidden; }
+  .fav {
+    flex:0 0 auto; width:76px; padding:12px 0 10px; border-radius:22px;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .appic {
+    width:44px; height:44px; border-radius:15px; display:flex; align-items:center; justify-content:center;
+    font-size:18px; font-weight:800; color:#fff; box-shadow:0 4px 12px rgba(15,23,42,.18), inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .fav small { font-size:10.5px; color:#475569; font-weight:600; }
+
+  .applist { display:flex; flex-direction:column; gap:10px; margin-top:2px; overflow:hidden; }
+  .app {
+    display:flex; align-items:center; gap:12px; padding:10px 14px 10px 10px; border-radius:20px;
+  }
+  .app .appic { width:40px; height:40px; border-radius:13px; font-size:16px; }
+  .app .nm { font-size:14px; font-weight:600; }
+  .app .pk { font-size:11px; color:#94a3b8; margin-top:1px; }
+  .app .go {
+    margin-left:auto; font-size:11px; font-weight:700; color:#3b82f6;
+    background:rgba(59,130,246,.12); padding:7px 12px; border-radius:999px; white-space:nowrap;
+  }
+
+  .tabbar {
+    margin-top:auto; margin-bottom:14px; display:flex; justify-content:space-around;
+    padding:12px 8px; border-radius:28px;
+  }
+  .tab { display:flex; flex-direction:column; align-items:center; gap:3px; font-size:10px; font-weight:600; color:#94a3b8; }
+  .tab.on { color:#3b82f6; }
+  .tab .ti { font-size:19px; }
+
+  /* ---------- screen 2 : floating demo ---------- */
+  .demo-win {
+    position:absolute; top:150px; left:36px; right:36px; z-index:3;
+    border-radius:24px; padding:0; overflow:hidden;
+  }
+  .demo-win .bar {
+    display:flex; align-items:center; gap:8px; padding:11px 14px;
+    border-bottom:1px solid rgba(255,255,255,.5); font-size:12.5px; font-weight:700;
+  }
+  .demo-win .grip { width:36px; height:5px; border-radius:99px; background:rgba(100,116,139,.35); margin:0 auto; }
+  .demo-win .body { padding:16px 14px 18px; font-size:12px; color:#475569; line-height:1.7; }
+  .chat { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+  .bub { max-width:82%; padding:9px 13px; border-radius:16px; font-size:12px; background:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.7); }
+  .bub.me { align-self:flex-end; background:rgba(59,130,246,.16); border-color:rgba(59,130,246,.25); }
+
+  .edge {
+    position:absolute; right:-1px; top:330px; z-index:4;
+    width:52px; height:52px; border-radius:18px 0 0 18px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; color:#3b82f6;
+  }
+  .minipanel {
+    position:absolute; right:60px; top:270px; z-index:4; width:172px; padding:12px; border-radius:22px;
+  }
+  .minipanel .mt { font-size:11px; font-weight:700; color:#64748b; margin-bottom:8px; letter-spacing:.4px; }
+  .mini { display:flex; align-items:center; gap:9px; padding:7px 4px; font-size:12.5px; font-weight:600; }
+  .mini .appic { width:30px; height:30px; border-radius:10px; font-size:12px; }
+
+  .notes {
+    margin-top:44px; max-width:760px; font-size:13.5px; color:#475569; line-height:1.9;
+    background:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.8); border-radius:22px; padding:22px 28px;
+  }
+  .notes b { color:#1e293b; }
+  .notes li { margin-left:18px; }
+</style>
+</head>
+<body>
+
+<h1>RuangApung <span style="font-weight:400;color:#94a3b8">·</span> <span style="font-size:18px;font-weight:600;color:#64748b">mockup</span></h1>
+<div class="sub">Aplikasi jendela mengambang · simpel · minimalis · liquid glass</div>
+<div class="badge">MOCKUP — bukan aplikasi jadi · teks &amp; ikon hanya ilustrasi</div>
+
+<div class="stage">
+
+  <!-- ============ SCREEN 1 : BERANDA ============ -->
+  <div class="unit">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="statusbar"><span>18:59</span><span class="ics">▲ 📶 🔋</span></div>
+        <div class="page">
+          <div class="hello">Selamat sore,</div>
+          <div class="title">Ruang<span>Apung</span></div>
+          <div class="glass search"><span class="dot"></span> Cari aplikasi…</div>
+
+          <div class="sect">Favorit</div>
+          <div class="favrow">
+            <div class="glass fav"><div class="appic" style="background:linear-gradient(135deg,#25d366,#128c7e)">W</div><small>WhatsApp</small></div>
+            <div class="glass fav"><div class="appic" style="background:linear-gradient(135deg,#ff3b30,#ff9500)">Y</div><small>YouTube</small></div>
+            <div class="glass fav"><div class="appic" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">T</div><small>Telegram</small></div>
+            <div class="glass fav"><div class="appic" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">N</div><small>Catatan</small></div>
+          </div>
+
+          <div class="sect">Semua aplikasi</div>
+          <div class="applist">
+            <div class="glass app">
+              <div class="appic" style="background:linear-gradient(135deg,#25d366,#128c7e)">W</div>
+              <div><div class="nm">WhatsApp</div><div class="pk">ketuk untuk buka mengambang</div></div>
+              <div class="go">Apung ▸</div>
+            </div>
+            <div class="glass app">
+              <div class="appic" style="background:linear-gradient(135deg,#f59e0b,#d97706)">K</div>
+              <div><div class="nm">Kalkulator</div><div class="pk">ketuk untuk buka mengambang</div></div>
+              <div class="go">Apung ▸</div>
+            </div>
+            <div class="glass app">
+              <div class="appic" style="background:linear-gradient(135deg,#0ea5e9,#0369a1)">C</div>
+              <div><div class="nm">Chrome</div><div class="pk">ketuk untuk buka mengambang</div></div>
+              <div class="go">Apung ▸</div>
+            </div>
+          </div>
+
+          <div class="glass tabbar">
+            <div class="tab on"><span class="ti">⌂</span>Beranda</div>
+            <div class="tab"><span class="ti">♥</span>Favorit</div>
+            <div class="tab"><span class="ti">⚙</span>Pengaturan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><b>Layar 1 — Beranda.</b> Cari aplikasi, daftar favorit, dan tombol <b>Apung ▸</b> untuk membuka tiap aplikasi sebagai jendela mengambang. Tab bar kaca di bawah.</div>
+  </div>
+
+  <!-- ============ SCREEN 2 : PANEL APUNG ============ -->
+  <div class="unit">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="statusbar"><span>18:59</span><span class="ics">▲ 📶 🔋</span></div>
+
+        <div class="glass demo-win">
+          <div class="bar"><span class="grip"></span></div>
+          <div class="bar" style="border:none;padding-top:0"><div class="appic" style="width:26px;height:26px;border-radius:9px;font-size:12px;background:linear-gradient(135deg,#25d366,#128c7e)">W</div> WhatsApp <span style="margin-left:auto;font-weight:400;color:#94a3b8;font-size:11px">jendela mengambang</span></div>
+          <div class="body">
+            Contoh jendela mengambang yang bisa digeser &amp; diubah ukurannya.
+            <div class="chat">
+              <div class="bub">Bro, jadi nongkrong jam 8?</div>
+              <div class="bub me">Jadi. Aku bawa charger ya</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass edge">⋮⋮</div>
+        <div class="glass minipanel">
+          <div class="mt">BUKA CEPAT</div>
+          <div class="mini"><div class="appic" style="background:linear-gradient(135deg,#25d366,#128c7e)">W</div>WhatsApp</div>
+          <div class="mini"><div class="appic" style="background:linear-gradient(135deg,#f59e0b,#d97706)">K</div>Kalkulator</div>
+          <div class="mini"><div class="appic" style="background:linear-gradient(135deg,#0ea5e9,#0369a1)">C</div>Chrome</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="caption"><b>Layar 2 — Bubble tepi.</b> Gelembung kaca di sisi layar, bisa dibuka dari aplikasi mana pun untuk meluncurkan favorit sebagai jendela mengambang tanpa kembali ke Beranda.</div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <b>Catatan desain</b>
+  <ul>
+    <li><b>Bahasa Indonesia</b> di seluruh UI, gaya bahasa santai.</li>
+    <li><b>Liquid glass:</b> panel kaca buram (blur + saturasi), highlight specular di tepi atas, radius besar, bayangan lembut.</li>
+    <li><b>Minimalis:</b> satu aksi utama per layar — <b>Apung ▸</b>. Tanpa menu bertingkat.</li>
+    <li>Warna aksen tunggal (biru–ungu) di atas wallpaper aurora pastel.</li>
+    <li>Nama kerja <b>"RuangApung"</b> — bisa diganti sebelum rilis.</li>
+  </ul>
+</div>
+
+</body>
+</html>
