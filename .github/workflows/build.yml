@@ -70,7 +70,7 @@ jobs:
           APKSIGNER="$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)"
           echo "--- apksigner verify ---"
           "$APKSIGNER" verify --print-certs "$APK"
-          FP=$("$APKSIGNER" verify --print-certs "$APK" | grep -i "SHA-256 digest" | head -1 | awk '{print $NF}' | tr -d ':')
+          FP=$("$APKSIGNER" verify --print-certs "$APK" | grep -i "SHA-256 digest" | head -1 | awk '{print $NF}' | tr -d ':' | tr 'a-f' 'A-F')
           echo "Fingerprint SHA-256: $FP"
           test -n "$FP"
           if [ "$FP" != "$EXPECTED_SHA256" ]; then
