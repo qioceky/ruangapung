@@ -62,10 +62,10 @@ class PrivilegedService : IPrivilegedService.Stub() {
         }
     }
 
-    override fun injectTouch(action: Int, xs: FloatArray?, ys: FloatArray?, displayId: Int) {
+    override fun injectTouch(action: Int, xs: FloatArray, ys: FloatArray, displayId: Int) {
         val im = inputManager ?: return
         val inject = injectMethod ?: return
-        if (xs == null || ys == null || xs.isEmpty() || xs.size != ys.size) return
+        if (xs.isEmpty() || xs.size != ys.size) return
         try {
             val n = xs.size
             val props = Array(n) { i ->
