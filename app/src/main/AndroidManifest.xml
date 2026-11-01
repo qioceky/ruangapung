@@ -58,5 +58,15 @@
                 android:value="Menampilkan aplikasi lain sebagai jendela mengambang (virtual display + overlay)." />
         </service>
 
+        <!-- Provider Shizuku: wajib agar Shizuku manager menemukan aplikasi ini
+             dan menyerahkan binder API. Class-nya dari artifact terpisah
+             dev.rikka.shizuku:provider (di v13 dipisah dari api). -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:exported="true"
+            android:multiprocess="false"
+            android:enabled="true" />
+
     </application>
 </manifest>
