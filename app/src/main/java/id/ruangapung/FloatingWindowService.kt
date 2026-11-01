@@ -14,6 +14,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.provider.Settings
+import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -131,7 +132,11 @@ class FloatingWindowService : Service() {
         }
         displayId = vdi.display.displayId
 
-        val v = LayoutInflater.from(this).inflate(R.layout.view_floating, null)
+        // Inflate dengan tema aplikasi: context Service memakai tema default
+        // sistem sehingga atribut ?attr/... (mis. selectableItemBackgroundBorderless)
+        // gagal di-resolve dan melempar InflateException.
+        val themed = ContextThemeWrapper(this, R.style.Theme_RuangApung)
+        val v = LayoutInflater.from(themed).inflate(R.layout.view_floating, null)
         v.findViewById<TextView>(R.id.winLabel).text = label
         texture = v.findViewById(R.id.winTexture)
 

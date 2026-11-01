@@ -11,6 +11,7 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
 import android.provider.Settings
+import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -77,7 +78,9 @@ class BubbleService : Service() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun showBubble() {
-        val v = LayoutInflater.from(this).inflate(R.layout.view_bubble, null)
+        // Tema aplikasi: cegah InflateException untuk atribut ?attr/... (lihat FloatingWindowService).
+        val themed = ContextThemeWrapper(this, R.style.Theme_RuangApung)
+        val v = LayoutInflater.from(themed).inflate(R.layout.view_bubble, null)
         val size = (56 * resources.displayMetrics.density).toInt()
         val params = WindowManager.LayoutParams(
             size, size,
@@ -171,7 +174,8 @@ class BubbleService : Service() {
             return
         }
         val pm = packageManager
-        val v = LayoutInflater.from(this).inflate(R.layout.view_panel, null)
+        val themed = ContextThemeWrapper(this, R.style.Theme_RuangApung)
+        val v = LayoutInflater.from(themed).inflate(R.layout.view_panel, null)
         val container = v.findViewById<LinearLayout>(R.id.panelList)
         for (pkg in favs.sorted()) {
             val label = runCatching { pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)).toString() }.getOrNull()
