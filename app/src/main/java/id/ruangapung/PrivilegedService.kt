@@ -90,7 +90,10 @@ class PrivilegedService : IPrivilegedService.Stub() {
                 0,
             )
             setDisplayId(ev, displayId)
-            inject.invoke(im, ev, displayId)
+            // AIDL IInputManager: injectInputEvent(InputEvent ev, int mode).
+            // Argumen kedua adalah MODE (0 = async), BUKAN displayId —
+            // displayId sudah diset di event via setDisplayId (sesuai referensi).
+            inject.invoke(im, ev, 0)
             ev.recycle()
         } catch (_: Exception) {
             // Fire-and-forget: jangan crash service karena satu sentuhan gagal.
@@ -105,7 +108,7 @@ class PrivilegedService : IPrivilegedService.Stub() {
             for (a in intArrayOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
                 val ev = KeyEvent(now, now, a, keyCode, 0)
                 setDisplayId(ev, displayId)
-                inject.invoke(im, ev, displayId)
+                inject.invoke(im, ev, 0)
                 // KeyEvent.recycle() tidak ada di SDK publik — biarkan GC yang urus.
             }
         } catch (_: Exception) {

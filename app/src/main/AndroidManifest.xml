@@ -58,13 +58,5 @@
                 android:value="Menampilkan aplikasi lain sebagai jendela mengambang (virtual display + overlay)." />
         </service>
 
-        <!-- Provider wajib Shizuku. authorities memakai applicationId. -->
-        <provider
-            android:name="rikka.shizuku.ShizukuProvider"
-            android:authorities="${applicationId}.shizuku"
-            android:exported="true"
-            android:multiprocess="false"
-            android:enabled="true" />
-
     </application>
 </manifest>
