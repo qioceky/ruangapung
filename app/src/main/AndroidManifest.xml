@@ -4,6 +4,9 @@
     <!-- Bubble tepi: overlay + foreground service. Tanpa INTERNET, tanpa QUERY_ALL_PACKAGES. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- Wajib di Android 14+ untuk foregroundServiceType="specialUse": tanpanya
+         startForeground() melempar SecurityException dan aplikasi crash. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <!-- Daftar aplikasi launcher TANPA QUERY_ALL_PACKAGES: cukup intent launcher. -->
     <queries>
@@ -14,6 +17,7 @@
     </queries>
 
     <application
+        android:name=".RuangApungApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"

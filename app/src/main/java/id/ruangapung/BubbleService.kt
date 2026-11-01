@@ -118,7 +118,13 @@ class BubbleService : Service() {
             }
         }
 
-        wm.addView(v, params)
+        try {
+            wm.addView(v, params)
+        } catch (e: Exception) {
+            Toast.makeText(this, getString(R.string.bubble_failed), Toast.LENGTH_LONG).show()
+            stopSelf()
+            return
+        }
         bubble = v
         bubbleParams = params
     }

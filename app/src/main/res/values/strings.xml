@@ -22,4 +22,7 @@
 
     <string name="notif_channel">Gelembung RuangApung</string>
     <string name="notif_text">Gelembung akses cepat aktif</string>
+    <string name="bubble_failed">Gagal menampilkan gelembung.</string>
+    <string name="crash_copied">Log crash disalin ke clipboard.</string>
+    <string name="no_crash_log">Belum ada log crash tersimpan.</string>
 </resources>

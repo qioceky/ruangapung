@@ -80,6 +80,16 @@ class MainActivity : AppCompatActivity() {
 
         bubbleButton.setOnClickListener { ensureOverlayThenStartBubble() }
 
+        // Tahan kartu status untuk menyalin log crash terakhir (bila ada).
+        statusCard.setOnLongClickListener {
+            if (RuangApungApp.copyLastCrash(this)) {
+                Toast.makeText(this, getString(R.string.crash_copied), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(R.string.no_crash_log), Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+
         loadApps()
         updateStatusCard()
         refreshList("")
