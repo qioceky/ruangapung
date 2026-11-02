@@ -13,6 +13,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="◫"
-        android:textColor="@android:color/white"
+        android:textColor="#3B82F6"
         android:textSize="24sp" />
 </FrameLayout>

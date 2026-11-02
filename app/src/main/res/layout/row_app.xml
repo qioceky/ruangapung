@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Baris aplikasi: kartu kaca + tombol Apung. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_card"
+    android:background="@drawable/bg_glass_card"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="12dp">
+    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/rowIcon"
@@ -41,8 +45,23 @@
         android:id="@+id/rowStar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
         android:text="★"
-        android:textColor="@color/brand"
+        android:textColor="#3B82F6"
         android:textSize="18sp"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/rowFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_accent"
+        android:paddingStart="14dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="8dp"
+        android:text="@string/float_btn"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold" />
 </LinearLayout>

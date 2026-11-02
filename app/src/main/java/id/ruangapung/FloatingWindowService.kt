@@ -141,8 +141,9 @@ class FloatingWindowService : Service() {
         texture = v.findViewById(R.id.winTexture)
 
         val dm = resources.displayMetrics
-        val w = dm.widthPixels * 3 / 4
-        val h = dm.heightPixels * 3 / 5
+        val (wf, hf) = MainActivity.windowFractions(this)
+        val w = (dm.widthPixels * wf).toInt()
+        val h = (dm.heightPixels * hf).toInt()
         params = WindowManager.LayoutParams(
             w, h,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,

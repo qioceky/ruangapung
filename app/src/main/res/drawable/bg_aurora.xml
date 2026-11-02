@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Background aurora pastel: biru – pink – mint. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#EDF1F7" />
+    </item>
+    <item
+        android:left="-260dp"
+        android:top="-320dp"
+        android:right="60dp"
+        android:bottom="280dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="520dp"
+                android:startColor="#C7D8FF"
+                android:endColor="#00C7D8FF" />
+        </shape>
+    </item>
+    <item
+        android:left="180dp"
+        android:top="-260dp"
+        android:right="-240dp"
+        android:bottom="320dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="520dp"
+                android:startColor="#FFD9E8"
+                android:endColor="#00FFD9E8" />
+        </shape>
+    </item>
+    <item
+        android:left="-120dp"
+        android:top="320dp"
+        android:right="-120dp"
+        android:bottom="-320dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="560dp"
+                android:startColor="#C9F2E4"
+                android:endColor="#00C9F2E4" />
+        </shape>
+    </item>
+</layer-list>

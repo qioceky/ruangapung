@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Beranda liquid glass: header + tab Beranda/Favorit + tab Pengaturan + tab bar kaca. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_aurora"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -21,68 +23,255 @@
         android:textSize="14sp"
         android:textColor="@color/muted" />
 
-    <TextView
-        android:id="@+id/statusCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/bg_card"
-        android:padding="14dp"
-        android:textSize="13sp"
-        android:textColor="@color/ink" />
-
-    <TextView
-        android:id="@+id/shizukuCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_card"
-        android:padding="14dp"
-        android:textSize="13sp"
-        android:textColor="@color/ink" />
-
-    <Button
-        android:id="@+id/shizukuButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/shizuku_btn_request" />
-
-    <EditText
-        android:id="@+id/searchBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/bg_card"
-        android:hint="@string/search_hint"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:padding="14dp"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="@string/no_apps"
-        android:textColor="@color/muted"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/appList"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:layout_weight="1"
-        android:clipToPadding="false" />
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/bubbleButton"
+        <!-- Tab Beranda / Favorit: daftar aplikasi -->
+        <LinearLayout
+            android:id="@+id/pageHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/statusCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_glass_card"
+                android:padding="14dp"
+                android:textSize="13sp"
+                android:textColor="@color/ink" />
+
+            <EditText
+                android:id="@+id/searchBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_glass_pill"
+                android:hint="@string/search_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingTop="13dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="13dp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/emptyView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="@string/no_apps"
+                android:textColor="@color/muted"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                android:clipToPadding="false" />
+        </LinearLayout>
+
+        <!-- Tab Pengaturan -->
+        <ScrollView
+            android:id="@+id/pageSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="14dp"
+                android:paddingBottom="8dp">
+
+                <!-- Shizuku -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/set_shizuku"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/muted" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_glass_card"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:id="@+id/setShizukuCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/ink" />
+
+                    <Button
+                        android:id="@+id/setShizukuButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_btn_accent"
+                        android:text="@string/shizuku_btn_request"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <!-- Ukuran jendela -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/set_window_size"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/muted" />
+
+                <LinearLayout
+                    android:id="@+id/setWindowSizeRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_glass_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/set_window_size"
+                        android:textSize="14sp"
+                        android:textColor="@color/ink" />
+
+                    <TextView
+                        android:id="@+id/setWindowSizeValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/muted" />
+                </LinearLayout>
+
+                <!-- Gelembung tepi -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/set_bubble"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/muted" />
+
+                <Button
+                    android:id="@+id/setBubbleToggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_glass_pill"
+                    android:text="@string/bubble_off"
+                    android:textColor="@color/ink" />
+
+                <!-- Log crash -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/set_crash"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/muted" />
+
+                <Button
+                    android:id="@+id/setCrashLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_glass_pill"
+                    android:text="@string/set_crash"
+                    android:textColor="@color/ink" />
+
+                <!-- Tentang -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/set_about"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/muted" />
+
+                <TextView
+                    android:id="@+id/setAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_glass_card"
+                    android:padding="14dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/ink" />
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+    <!-- Tab bar kaca -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@string/bubble_toggle" />
+        android:background="@drawable/bg_glass_pill"
+        android:orientation="horizontal"
+        android:padding="6dp">
 
+        <TextView
+            android:id="@+id/tabHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/tab_home"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tabFav"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/tab_fav"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tabSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/tab_settings"
+            android:textSize="13sp" />
+    </LinearLayout>
 </LinearLayout>

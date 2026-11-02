@@ -29,6 +29,11 @@ import androidx.core.app.NotificationCompat
  */
 class BubbleService : Service() {
 
+    companion object {
+        @Volatile
+        var isRunning = false
+    }
+
     private lateinit var wm: WindowManager
     private var bubble: View? = null
     private var panel: View? = null
@@ -39,6 +44,7 @@ class BubbleService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        isRunning = true
         wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
         startAsForeground()
     }
@@ -54,6 +60,7 @@ class BubbleService : Service() {
     }
 
     override fun onDestroy() {
+        isRunning = false
         bubble?.let { runCatching { wm.removeView(it) } }
         panel?.let { runCatching { wm.removeView(it) } }
         bubble = null

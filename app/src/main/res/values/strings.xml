@@ -48,4 +48,22 @@
     <string name="notif_text_floating">Jendela mengambang aktif</string>
     <string name="back">Kembali</string>
     <string name="resize">Ubah ukuran</string>
+
+    <!-- Liquid glass v0.3.0: tab & pengaturan -->
+    <string name="tab_home">Beranda</string>
+    <string name="tab_fav">Favorit</string>
+    <string name="tab_settings">Pengaturan</string>
+    <string name="float_btn">Apung ›</string>
+    <string name="empty_favorites">Belum ada favorit.\nTahan aplikasi di daftar untuk menambahkannya.</string>
+    <string name="set_shizuku">Shizuku</string>
+    <string name="set_window_size">Ukuran jendela bawaan</string>
+    <string name="window_size_small">Kecil (60% × 50%)</string>
+    <string name="window_size_medium">Sedang (75% × 60%)</string>
+    <string name="window_size_large">Besar (90% × 75%)</string>
+    <string name="set_bubble">Gelembung tepi</string>
+    <string name="bubble_off">Aktifkan gelembung tepi</string>
+    <string name="bubble_on">Nonaktifkan gelembung tepi</string>
+    <string name="bubble_stopped">Gelembung tepi dinonaktifkan.</string>
+    <string name="set_crash">Salin log crash</string>
+    <string name="set_about">Tentang</string>
 </resources>
